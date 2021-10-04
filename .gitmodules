@@ -1,0 +1,3 @@
+[submodule "src/lib/basisu"]
+	path = src/lib/basisu
+	url = https://github.com/borodust/basis_universal.git
