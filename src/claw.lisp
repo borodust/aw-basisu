@@ -3,13 +3,17 @@
                   (:headers "basisu_transcoder.h")
                   (:includes :basisu-includes)
                   (:include-definitions "^BASISD_.*"
-                                        "^basist::basisu_transcoder_init$"
-                                        "^basist::basisu_transcoder$"
-                                        "^basist::basisu_transcoder::.*"
-                                        "^basist::ktx2_transcoder$"
-                                        "^basist::ktx2_transcoder::.*"
+                                        "^basist::basis_.*"
+                                        "^basist::basisu_.*"
+                                        "^basist::ktx2_*"
+
                                         "etc1_global_selector_codebook"
-                                        "g_global_selector")
+                                        "g_global_selector"
+
+                                        "get_qwords_per_block"
+                                        "get_block_width"
+                                        "get_block_height"
+                                        "get_bytes_per_block")
                   (:exclude-definitions "^std::basic_string"
                                         "^std::__")
                   (:targets ((:and :x86-64 :linux) "x86_64-pc-linux-gnu")
@@ -25,4 +29,8 @@
                  :path "src/lib/adapter/adapter.cxx")
   :override-types ((:string claw-utils:claw-string)
                    (:pointer claw-utils:claw-pointer))
-  :symbolicate-names (:by-removing-prefixes "basist::" "basisu_" "BASISD_"))
+  :symbolicate-names (:in-pipeline
+                      (:by-removing-prefixes "basist::"
+                                             "basisu::"
+                                             "BASISD_")
+                      (:by-removing-prefixes "basisu_" "basis_" "cTF")))
