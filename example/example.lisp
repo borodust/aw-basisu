@@ -20,12 +20,12 @@
     (cffi:use-foreign-library aw-basisu-blob)
     (%basisu:transcoder-init)
 
-    (setf
-     *etc1-global-selector-codebook*
-     (iffi:make-intricate-instance
-      '%basisu:etc1-global-selector-codebook
-      '%basisu::uint32-t %basisu:+g-global-selector-cb-size+
-      '(claw-utils:claw-pointer %basisu::uint32-t) %basisu:+g-global-selector-cb+))
+    #++(setf
+        *etc1-global-selector-codebook*
+        (iffi:make-intricate-instance
+         '%basisu:etc1-global-selector-codebook
+         '%basisu::uint32-t %basisu:+g-global-selector-cb-size+
+         '(claw-utils:claw-pointer %basisu::uint32-t) %basisu:+g-global-selector-cb+))
 
     (setf *basisu-initialized* t)))
 
@@ -33,9 +33,7 @@
 (defmacro with-transcoder ((transcoder-var file-path) &body body)
   (alexandria:with-gensyms (data data-ptr encoded)
     `(iffi:with-intricate-instance
-         (,transcoder-var %basisu:ktx2-transcoder
-                          '(claw-utils:claw-pointer %basisu::etc1-global-selector-codebook)
-                          *etc1-global-selector-codebook*)
+         (,transcoder-var %basisu:ktx2-transcoder)
        (with-open-file (,encoded ,file-path
                                  :direction :input
                                  :element-type '(unsigned-byte 8))

@@ -72,8 +72,8 @@ function build_desktop {
     cmake -DCMAKE_BUILD_TYPE=$BUILD_TYPE \
           -DCMAKE_C_COMPILER=clang \
           -DCMAKE_CXX_COMPILER=clang++ \
-          -DCMAKE_C_FLAGS="$COMMON_FLAGS -DBASISU_SUPPORT_SSE=1 -msse4.1" \
-          -DCMAKE_CXX_FLAGS="$COMMON_FLAGS -DBASISU_SUPPORT_SSE=1 -msse4.1" \
+          -DCMAKE_C_FLAGS="$COMMON_FLAGS -DBASISU_SUPPORT_SSE=1 -mavx" \
+          -DCMAKE_CXX_FLAGS="$COMMON_FLAGS -DBASISU_SUPPORT_SSE=1 -mavx" \
           -DCMAKE_SHARED_LINKER_FLAGS="-stdlib=libc++ -lc++abi" \
           $WORK_DIR
     cmake --build . --config $BUILD_TYPE
