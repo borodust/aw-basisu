@@ -13,20 +13,11 @@
 
 
 (defvar *basisu-initialized* nil)
-(defvar *etc1-global-selector-codebook* nil)
 
 (defun init-basisu ()
   (unless *basisu-initialized*
     (cffi:use-foreign-library aw-basisu-blob)
     (%basisu:transcoder-init)
-
-    #++(setf
-        *etc1-global-selector-codebook*
-        (iffi:make-intricate-instance
-         '%basisu:etc1-global-selector-codebook
-         '%basisu::uint32-t %basisu:+g-global-selector-cb-size+
-         '(claw-utils:claw-pointer %basisu::uint32-t) %basisu:+g-global-selector-cb+))
-
     (setf *basisu-initialized* t)))
 
 
